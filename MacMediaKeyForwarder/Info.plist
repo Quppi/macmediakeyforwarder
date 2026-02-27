@@ -23,7 +23,7 @@
 	<key>LSUIElement</key>
 	<true/>
 	<key>NSAppleEventsUsageDescription</key>
-	<string>This allows MacMediaKeyForwarder to control iTunes &amp; Spotify</string>
+	<string>This allows MacMediaKeyForwarder to control Apple Music &amp; Spotify</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>2026. Philipp Meyer. No rights reserved.</string>
 	<key>NSPrincipalClass</key>

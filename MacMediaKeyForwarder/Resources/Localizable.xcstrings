@@ -594,7 +594,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTunes 또는 Spotify가 열려있지 않으면 일시정지"
+            "value" : "Apple Music 또는 Spotify가 열려있지 않으면 일시정지"
           }
         },
         "nl" : {
@@ -623,73 +623,73 @@
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prioriter iTunes"
+            "value" : "Prioriter Apple Music"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTunes priorisieren"
+            "value" : "Apple Music priorisieren"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prioritize iTunes"
+            "value" : "Prioritize Apple Music"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dar prioridad a iTunes"
+            "value" : "Dar prioridad a Apple Music"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTunes etusijalla"
+            "value" : "Apple Music etusijalla"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Privilégier iTunes"
+            "value" : "Privilégier Apple Music"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Az iTunes fontosabb"
+            "value" : "Az Apple Music fontosabb"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTunesを優先"
+            "value" : "Apple Musicを優先"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTunes에 우선권 부여"
+            "value" : "Apple Music에 우선권 부여"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prioriteer iTunes"
+            "value" : "Prioriteer Apple Music"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Priorytetyzuj iTunes"
+            "value" : "Priorytetyzuj Apple Music"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Предпочитать iTunes"
+            "value" : "Предпочитать Apple Music"
           }
         }
       }
@@ -902,7 +902,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTunes, Spotify에 모두 이벤트 보내기"
+            "value" : "Apple Music, Spotify에 모두 이벤트 보내기"
           }
         },
         "nl" : {
