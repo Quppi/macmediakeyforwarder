@@ -36,14 +36,6 @@ You can do this with these steps:
 
 ![Security Setting](security_b.png)
 
-**Other milgra utilities you might be interested in**
-
-[mac audio keepalive](https://github.com/milgra/macaudiokeepalive)
-
-[airpods sound quality fixer](https://github.com/milgra/airpodssoundqualityfixer)
-
-[fat fingers keyboard for iphone](https://github.com/milgra/fatfingerskeyboard)
-
 ---
 
 **Contributors :** 
@@ -66,6 +58,7 @@ You can do this with these steps:
 * Andy White ([@arcwhite](https://github.com/arcwhite))
 * xjbeta ([@xjbeta](https://github.com/xjbeta))
 * Jules Coynel ([@jcoynel](https://github.com/jcoynel))
+* Tom Underhill ([@tom-un](https://github.com/tom-un))
 
 Thank you!!!
 
