@@ -12,7 +12,7 @@ Download the compiled application from my [Releases](https://github.com/quentinl
 
 If you want even more control over what you want to control you should try [beardedspice](http://beardedspice.github.io).
 
-**Issues you should know about**
+## Issues you should know about
 
 The app listens on the event tap for key events. This causes problems in some rare cases, like
 
@@ -21,9 +21,23 @@ The app listens on the event tap for key events. This causes problems in some ra
 
 In these cases simply pause Mac Media Key Forwarder from it's menu.
 
-**Installation & Compatibility prior to Sonoma**
+## Installation & Compatibility prior to Sonoma
 
 For macOS versions prior to Sonoma please use the [original fork](https://github.com/quentinlesceller/macmediakeyforwarder) by Quentin Lesceller.
+
+If your mac displays the following error message when you try to open the app
+
+```
+macOS cannot verify that this app is free from malware
+```
+
+you can disable the gatekeeper security check with the following command in the terminal:
+
+```
+sudo xattr -r -d com.apple.quarantine /Applications/MacMediaKeyForwarder.app
+```
+
+! note: adjust the path to the app if it's located in a different location
 
 The app itself is compatible with Sonoma or later, but you need to add it as trusted application in order to make it function properly.
 
@@ -36,13 +50,7 @@ You can do this with these steps:
 5. Turn on the checkbox for **iTunes.app** and **Spotifiy.app** under **MacMediaKeyForwarder.app** in the right list
 6. Run the app again
 
-![Security Setting](security_a.png)
-
-![Security Setting](security_b.png)
-
----
-
-**Contributors :**
+## Contributors :
 
 - Michael Dorner ([@michaeldorner](http://github.com/michaeldorner))
 - Matt Chaput ([@mchaput](http://github.com/mchaput))
@@ -63,11 +71,13 @@ You can do this with these steps:
 - Andy White ([@arcwhite](https://github.com/arcwhite))
 - xjbeta ([@xjbeta](https://github.com/xjbeta))
 - Jules Coynel ([@jcoynel](https://github.com/jcoynel))
+- Milan Toth ([@milgra](https://github.com/milgra))
+- Quentin Le Sceller ([@quentinlesceller](https://github.com/quentinlesceller))
 - Tom Underhill ([@tom-un](https://github.com/tom-un))
 
 Thank you!!!
 
----
+## Changelog
 
 _What's new in version 4.0 :_
 
@@ -123,7 +133,7 @@ _What's new in version 2.1 :_
 
 - app brings up permission popups if permission is not granted for Accessibility and Automation Target
 
-What's new in version 2.0 :
+_What's new in version 2.0 :_
 
 - app renamed to Mac Media Key Forwarder
 - Hungarian localization
@@ -132,13 +142,13 @@ What's new in version 2.0 :
 - added installation steps to readme because increased MacOS security made it more confusing
 - added event-tap related issues to readme because it can cause head scratches in some special cases
 
-What's new in version 1.9 :
+_What's new in version 1.9 :_
 
 - added open at login menu option
 - German localization update
 - Korean localization update
 
-What's new in version 1.8 :
+_What's new in version 1.8 :_
 
 - added pause menu option
 - added pause automatically menu option : if no music player is running macOS default behavior is used and keys are forwarded to currently active media player
@@ -148,30 +158,30 @@ What's new in version 1.8 :
 - fixed headphone button issue
 - added macOS Sierra compatibility if you want explicit music player control there
 
-What's new in version 1.7 :
+_What's new in version 1.7 :_
 
 - fast forward/rewind is possible when iTunes is selected explicitly
 - Korean localization
 - rumors say that it works with TouchBar
 
-What's new in version 1.6 :
+_What's new in version 1.6 :_
 
 - increased compatibility with external keyboards
 
-What's new in version 1.5 :
+_What's new in version 1.5 :_
 
 - now you can explicitly prioritize iTunes or Spotify
 - play button now starts up iTunes or Spotify if they are not running aaaand explicitly selected
 
-What's new in version 1.4 :
+_What's new in version 1.4 :_
 
 - memory leak fixed
 
-What's new in version 1.3 :
+_What's new in version 1.3 :_
 
 - previousTrack replaced with backTrack in case of iTunes for a better experience
 
-What's new in version 1.2 :
+_What's new in version 1.2 :_
 
 - new icon
 - source code is super tight now
