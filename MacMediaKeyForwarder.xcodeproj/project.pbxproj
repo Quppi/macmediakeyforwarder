@@ -3,60 +3,49 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3333F8972198687500816A9F /* GBLaunchAtLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 3333F8942198687500816A9F /* GBLaunchAtLogin.m */; };
-		336F744D1E07E136009BCC1B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 336F744C1E07E136009BCC1B /* AppDelegate.m */; };
-		336F74501E07E136009BCC1B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 336F744F1E07E136009BCC1B /* main.m */; };
 		336F74521E07E136009BCC1B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 336F74511E07E136009BCC1B /* Assets.xcassets */; };
-		336F74551E07E136009BCC1B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 336F74531E07E136009BCC1B /* MainMenu.xib */; };
-		336F74651E07E4F6009BCC1B /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 336F74641E07E4F6009BCC1B /* CoreAudio.framework */; };
 		33CD48BF1F866DB7000C454F /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33CD48BE1F866DB7000C454F /* ScriptingBridge.framework */; };
 		33CD48CB1F867394000C454F /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 33CD48C71F8671B6000C454F /* icon.png */; };
 		33CD48CC1F867408000C454F /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 33CD48C91F86724F000C454F /* icon@2x.png */; };
-		33E2CC3E21B1361E002F8094 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E2CC3D21B1361E002F8094 /* CoreServices.framework */; };
-		A5999C4C1FF3BB89009905E1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A5999C4E1FF3BB89009905E1 /* Localizable.strings */; };
 		AA3E49F621AAA0C500EEA78B /* appicon.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3E49F521AAA0C500EEA78B /* appicon.png */; };
+		CC00000000000000000001A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000000000000000000A1 /* AppDelegate.swift */; };
+		CC00000000000000000001A2 /* MediaKeyCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000000000000000000A2 /* MediaKeyCode.swift */; };
+		CC00000000000000000001A3 /* MediaKeyEventTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000000000000000000A3 /* MediaKeyEventTap.swift */; };
+		CC00000000000000000001A4 /* AppleMusicBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000000000000000000A4 /* AppleMusicBridge.swift */; };
+		CC00000000000000000001A5 /* SpotifyBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000000000000000000A5 /* SpotifyBridge.swift */; };
+		CC00000000000000000001A6 /* KeyHoldStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000000000000000000A6 /* KeyHoldStateMachine.swift */; };
+		CC00000000000000000001A7 /* MediaPlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000000000000000000A7 /* MediaPlayerController.swift */; };
+		CC00000000000000000001A8 /* AppPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000000000000000000A8 /* AppPreferences.swift */; };
+		CC00000000000000000001A9 /* LoginItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000000000000000000A9 /* LoginItemManager.swift */; };
+		CC00000000000000000001AA /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000000000000000000AA /* StatusBarController.swift */; };
+		CC00000000000000000001AB /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = CC00000000000000000000AB /* Localizable.xcstrings */; };
+		CC00000000000000000001AC /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC00000000000000000000AC /* ServiceManagement.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		112AF55920263497006937BF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		2C9625F520295D9F00F0C47E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
-		330630112313ED7500ACFBFE /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
-		330630122313ED8100ACFBFE /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
-		330630132313F6D400ACFBFE /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
-		330630142313F6DE00ACFBFE /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
-		3319A9E81E085353005DB79C /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
-		3319A9E91E085353005DB79C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
-		3333F8922198687500816A9F /* GBLaunchAtLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBLaunchAtLogin.h; sourceTree = "<group>"; };
-		3333F8932198687500816A9F /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		3333F8942198687500816A9F /* GBLaunchAtLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBLaunchAtLogin.m; sourceTree = "<group>"; };
-		3333F8952198687500816A9F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		336F74481E07E136009BCC1B /* MacMediaKeyForwarder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacMediaKeyForwarder.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		336F744B1E07E136009BCC1B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		336F744C1E07E136009BCC1B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		336F744F1E07E136009BCC1B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		336F74511E07E136009BCC1B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		336F74541E07E136009BCC1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		336F74561E07E136009BCC1B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		336F74641E07E4F6009BCC1B /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
-		337268BF1F8BA311007284E3 /* Spotify.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Spotify.h; sourceTree = "<group>"; };
-		338A08AF2028840D001F1ED3 /* manualtest.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = manualtest.txt; sourceTree = "<group>"; };
-		3397086D21EB6B7B009F3857 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
-		3397086E21EB6B8F009F3857 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
-		3397086F21EB6B9C009F3857 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
-		33B952841FD6E8C5003EE4CD /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = SOURCE_ROOT; };
 		33CD48BE1F866DB7000C454F /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
-		33CD48C11F866DC6000C454F /* iTunes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iTunes.h; sourceTree = "<group>"; };
 		33CD48C71F8671B6000C454F /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		33CD48C91F86724F000C454F /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
-		33E2CC3D21B1361E002F8094 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
-		84B350D923526D6100255450 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A5999C4D1FF3BB89009905E1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A5999C4F1FF3BB98009905E1 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA3E49F521AAA0C500EEA78B /* appicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appicon.png; sourceTree = "<group>"; };
+		CC00000000000000000000A1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CC00000000000000000000A2 /* MediaKeyCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaKeyCode.swift; sourceTree = "<group>"; };
+		CC00000000000000000000A3 /* MediaKeyEventTap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaKeyEventTap.swift; sourceTree = "<group>"; };
+		CC00000000000000000000A4 /* AppleMusicBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMusicBridge.swift; sourceTree = "<group>"; };
+		CC00000000000000000000A5 /* SpotifyBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyBridge.swift; sourceTree = "<group>"; };
+		CC00000000000000000000A6 /* KeyHoldStateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyHoldStateMachine.swift; sourceTree = "<group>"; };
+		CC00000000000000000000A7 /* MediaPlayerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPlayerController.swift; sourceTree = "<group>"; };
+		CC00000000000000000000A8 /* AppPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPreferences.swift; sourceTree = "<group>"; };
+		CC00000000000000000000A9 /* LoginItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItemManager.swift; sourceTree = "<group>"; };
+		CC00000000000000000000AA /* StatusBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
+		CC00000000000000000000AB /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		CC00000000000000000000AC /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,27 +53,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				33E2CC3E21B1361E002F8094 /* CoreServices.framework in Frameworks */,
 				33CD48BF1F866DB7000C454F /* ScriptingBridge.framework in Frameworks */,
-				336F74651E07E4F6009BCC1B /* CoreAudio.framework in Frameworks */,
+				CC00000000000000000001AC /* ServiceManagement.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3333F8912198687500816A9F /* GBLaunchAtLogin */ = {
-			isa = PBXGroup;
-			children = (
-				3333F8922198687500816A9F /* GBLaunchAtLogin.h */,
-				3333F8932198687500816A9F /* LICENSE */,
-				3333F8942198687500816A9F /* GBLaunchAtLogin.m */,
-				3333F8952198687500816A9F /* README.md */,
-			);
-			name = GBLaunchAtLogin;
-			path = MacMediaKeyForwarder/Frameworks/GBLaunchAtLogin;
-			sourceTree = "<group>";
-		};
 		336F743F1E07E136009BCC1B = {
 			isa = PBXGroup;
 			children = (
@@ -105,43 +81,81 @@
 		336F744A1E07E136009BCC1B /* MacMediaKeyForwarder */ = {
 			isa = PBXGroup;
 			children = (
-				33CD48C11F866DC6000C454F /* iTunes.h */,
-				337268BF1F8BA311007284E3 /* Spotify.h */,
-				336F744B1E07E136009BCC1B /* AppDelegate.h */,
-				336F744C1E07E136009BCC1B /* AppDelegate.m */,
-				336F744E1E07E136009BCC1B /* Supporting Files */,
+				CC00000000000000000000D1 /* App */,
+				CC00000000000000000000D2 /* EventTap */,
+				CC00000000000000000000D3 /* MediaControl */,
+				CC00000000000000000000D4 /* Preferences */,
+				CC00000000000000000000D5 /* MenuBar */,
+				CC00000000000000000000D6 /* Resources */,
+				336F74561E07E136009BCC1B /* Info.plist */,
 			);
 			path = MacMediaKeyForwarder;
-			sourceTree = "<group>";
-		};
-		336F744E1E07E136009BCC1B /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				33B952841FD6E8C5003EE4CD /* .travis.yml */,
-				AA3E49F521AAA0C500EEA78B /* appicon.png */,
-				33CD48C71F8671B6000C454F /* icon.png */,
-				33CD48C91F86724F000C454F /* icon@2x.png */,
-				336F74511E07E136009BCC1B /* Assets.xcassets */,
-				336F74531E07E136009BCC1B /* MainMenu.xib */,
-				336F74561E07E136009BCC1B /* Info.plist */,
-				3319A9E81E085353005DB79C /* LICENSE */,
-				3319A9E91E085353005DB79C /* README.md */,
-				338A08AF2028840D001F1ED3 /* manualtest.txt */,
-				336F744F1E07E136009BCC1B /* main.m */,
-				A5999C4E1FF3BB89009905E1 /* Localizable.strings */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		336F74631E07E4F6009BCC1B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				33E2CC3D21B1361E002F8094 /* CoreServices.framework */,
-				3333F8912198687500816A9F /* GBLaunchAtLogin */,
 				33CD48BE1F866DB7000C454F /* ScriptingBridge.framework */,
-				336F74641E07E4F6009BCC1B /* CoreAudio.framework */,
+				CC00000000000000000000AC /* ServiceManagement.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CC00000000000000000000D1 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				CC00000000000000000000A1 /* AppDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		CC00000000000000000000D2 /* EventTap */ = {
+			isa = PBXGroup;
+			children = (
+				CC00000000000000000000A2 /* MediaKeyCode.swift */,
+				CC00000000000000000000A3 /* MediaKeyEventTap.swift */,
+			);
+			path = EventTap;
+			sourceTree = "<group>";
+		};
+		CC00000000000000000000D3 /* MediaControl */ = {
+			isa = PBXGroup;
+			children = (
+				CC00000000000000000000A4 /* AppleMusicBridge.swift */,
+				CC00000000000000000000A5 /* SpotifyBridge.swift */,
+				CC00000000000000000000A6 /* KeyHoldStateMachine.swift */,
+				CC00000000000000000000A7 /* MediaPlayerController.swift */,
+			);
+			path = MediaControl;
+			sourceTree = "<group>";
+		};
+		CC00000000000000000000D4 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				CC00000000000000000000A8 /* AppPreferences.swift */,
+				CC00000000000000000000A9 /* LoginItemManager.swift */,
+			);
+			path = Preferences;
+			sourceTree = "<group>";
+		};
+		CC00000000000000000000D5 /* MenuBar */ = {
+			isa = PBXGroup;
+			children = (
+				CC00000000000000000000AA /* StatusBarController.swift */,
+			);
+			path = MenuBar;
+			sourceTree = "<group>";
+		};
+		CC00000000000000000000D6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				336F74511E07E136009BCC1B /* Assets.xcassets */,
+				CC00000000000000000000AB /* Localizable.xcstrings */,
+				33CD48C71F8671B6000C454F /* icon.png */,
+				33CD48C91F86724F000C454F /* icon@2x.png */,
+				AA3E49F521AAA0C500EEA78B /* appicon.png */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,13 +184,14 @@
 		336F74401E07E136009BCC1B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1330;
+				BuildIndependentTargetsInParallel = YES;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 2610;
 				ORGANIZATIONNAME = "Milan Toth";
 				TargetAttributes = {
 					336F74471E07E136009BCC1B = {
 						CreatedOnToolsVersion = 8.2;
-						DevelopmentTeam = 2BLCUDDDEY;
-						ProvisioningStyle = Manual;
+						LastSwiftMigration = 1600;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 0;
@@ -186,12 +201,11 @@
 				};
 			};
 			buildConfigurationList = 336F74431E07E136009BCC1B /* Build configuration list for PBXProject "MacMediaKeyForwarder" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 				ko,
 				de,
 				es,
@@ -203,6 +217,7 @@
 				pl,
 				nl,
 				fr,
+				Base,
 			);
 			mainGroup = 336F743F1E07E136009BCC1B;
 			productRefGroup = 336F74491E07E136009BCC1B /* Products */;
@@ -220,9 +235,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				336F74521E07E136009BCC1B /* Assets.xcassets in Resources */,
-				A5999C4C1FF3BB89009905E1 /* Localizable.strings in Resources */,
+				CC00000000000000000001AB /* Localizable.xcstrings in Resources */,
 				33CD48CC1F867408000C454F /* icon@2x.png in Resources */,
-				336F74551E07E136009BCC1B /* MainMenu.xib in Resources */,
 				AA3E49F621AAA0C500EEA78B /* appicon.png in Resources */,
 				33CD48CB1F867394000C454F /* icon.png in Resources */,
 			);
@@ -235,43 +249,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3333F8972198687500816A9F /* GBLaunchAtLogin.m in Sources */,
-				336F74501E07E136009BCC1B /* main.m in Sources */,
-				336F744D1E07E136009BCC1B /* AppDelegate.m in Sources */,
+				CC00000000000000000001A1 /* AppDelegate.swift in Sources */,
+				CC00000000000000000001A2 /* MediaKeyCode.swift in Sources */,
+				CC00000000000000000001A3 /* MediaKeyEventTap.swift in Sources */,
+				CC00000000000000000001A4 /* AppleMusicBridge.swift in Sources */,
+				CC00000000000000000001A5 /* SpotifyBridge.swift in Sources */,
+				CC00000000000000000001A6 /* KeyHoldStateMachine.swift in Sources */,
+				CC00000000000000000001A7 /* MediaPlayerController.swift in Sources */,
+				CC00000000000000000001A8 /* AppPreferences.swift in Sources */,
+				CC00000000000000000001A9 /* LoginItemManager.swift in Sources */,
+				CC00000000000000000001AA /* StatusBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		336F74531E07E136009BCC1B /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				336F74541E07E136009BCC1B /* Base */,
-			);
-			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
-		A5999C4E1FF3BB89009905E1 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A5999C4D1FF3BB89009905E1 /* en */,
-				A5999C4F1FF3BB98009905E1 /* ko */,
-				112AF55920263497006937BF /* de */,
-				2C9625F520295D9F00F0C47E /* es */,
-				3397086D21EB6B7B009F3857 /* hu */,
-				3397086E21EB6B8F009F3857 /* ru */,
-				3397086F21EB6B9C009F3857 /* da */,
-				330630112313ED7500ACFBFE /* ja */,
-				330630122313ED8100ACFBFE /* fi */,
-				330630132313F6D400ACFBFE /* pl */,
-				330630142313F6DE00ACFBFE /* nl */,
-				84B350D923526D6100255450 /* fr */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		336F74571E07E136009BCC1B /* Debug */ = {
@@ -280,7 +271,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -307,10 +298,12 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -324,10 +317,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -337,7 +333,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -364,10 +360,12 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -375,9 +373,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
 			};
 			name = Release;
 		};
@@ -385,20 +385,24 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = 2BLCUDDDEY;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = MacMediaKeyForwarder/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 3.1.2;
-				PRODUCT_BUNDLE_IDENTIFIER = com.milgra.hsmke;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 4.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = eu.meyer.mmkf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -406,20 +410,24 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = 2BLCUDDDEY;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = MacMediaKeyForwarder/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 3.1.2;
-				PRODUCT_BUNDLE_IDENTIFIER = com.milgra.hsmke;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 4.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = eu.meyer.mmkf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
