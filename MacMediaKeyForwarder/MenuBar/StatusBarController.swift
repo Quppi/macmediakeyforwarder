@@ -25,8 +25,7 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         // Version string
         let bundleInfo = Bundle.main.infoDictionary ?? [:]
         let version = bundleInfo["CFBundleShortVersionString"] as? String ?? "?"
-        let build = bundleInfo["CFBundleVersion"] as? String ?? "?"
-        let versionString = "Version \(version) (build \(build))"
+        let versionString = "Version \(version)"
 
         // Build menu
         let menu = NSMenu()
