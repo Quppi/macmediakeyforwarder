@@ -20,6 +20,7 @@
 		CC00000000000000000001A9 /* LoginItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000000000000000000A9 /* LoginItemManager.swift */; };
 		CC00000000000000000001AA /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000000000000000000AA /* StatusBarController.swift */; };
 		CC00000000000000000001AB /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = CC00000000000000000000AB /* Localizable.xcstrings */; };
+		CC00000000000000000001AD /* TidalBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000000000000000000AD /* TidalBridge.swift */; };
 		CC00000000000000000001AC /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC00000000000000000000AC /* ServiceManagement.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +41,7 @@
 		CC00000000000000000000AA /* StatusBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
 		CC00000000000000000000AB /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		CC00000000000000000000AC /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
+		CC00000000000000000000AD /* TidalBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TidalBridge.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 			children = (
 				CC00000000000000000000A4 /* AppleMusicBridge.swift */,
 				CC00000000000000000000A5 /* SpotifyBridge.swift */,
+				CC00000000000000000000AD /* TidalBridge.swift */,
 				CC00000000000000000000A6 /* KeyHoldStateMachine.swift */,
 				CC00000000000000000000A7 /* MediaPlayerController.swift */,
 			);
@@ -247,6 +250,7 @@
 				CC00000000000000000001A8 /* AppPreferences.swift in Sources */,
 				CC00000000000000000001A9 /* LoginItemManager.swift in Sources */,
 				CC00000000000000000001AA /* StatusBarController.swift in Sources */,
+				CC00000000000000000001AD /* TidalBridge.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,7 +391,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 4.0.0;
+				MARKETING_VERSION = 4.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = eu.meyer.mmkf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -413,7 +417,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 4.0.0;
+				MARKETING_VERSION = 4.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = eu.meyer.mmkf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

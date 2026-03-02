@@ -9,6 +9,7 @@ final class MediaPlayerController {
     let preferences: AppPreferences
     let appleMusic = AppleMusicBridge()
     let spotify = SpotifyBridge()
+    let tidal = TidalBridge()
 
     /// Key-hold state machine for iTunes-priority fast-forward/rewind detection.
     private var keyHoldMachine = KeyHoldStateMachine()
@@ -28,7 +29,7 @@ final class MediaPlayerController {
 
         // Auto-pause — only forward when at least one player is running
         if preferences.pauseMode == .automatic {
-            if !spotify.isRunning && !appleMusic.isRunning {
+            if !spotify.isRunning && !appleMusic.isRunning && !tidal.isRunning {
                 return
             }
         }
@@ -48,8 +49,8 @@ final class MediaPlayerController {
             handleiTunesPriorityKeyDown(event)
         case .spotify:
             handleSpotifyPriorityKeyDown(event)
-        case .none:
-            handleBothPlayersKeyDown(event)
+        case .tidal:
+            handleTidalPriorityKeyDown(event)
         }
     }
 
@@ -87,17 +88,14 @@ final class MediaPlayerController {
         }
     }
 
-    private func handleBothPlayersKeyDown(_ event: MediaKeyEvent) {
+    private func handleTidalPriorityKeyDown(_ event: MediaKeyEvent) {
         switch event.keyCode {
         case .play:
-            if spotify.isRunning { spotify.playPause() }
-            if appleMusic.isRunning { appleMusic.playPause() }
+            tidal.playPause()
         case .next, .fast:
-            if spotify.isRunning { spotify.nextTrack() }
-            if appleMusic.isRunning { appleMusic.nextTrack() }
+            tidal.nextTrack()
         case .previous, .rewind:
-            if spotify.isRunning { spotify.previousTrack() }
-            if appleMusic.isRunning { appleMusic.backTrack() }
+            tidal.previousTrack()
         }
     }
 

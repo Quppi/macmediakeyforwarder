@@ -1,14 +1,18 @@
 # Mac Media Key Forwarder
 
-Mac Media Key Forwarder for [Apple Music](https://www.apple.com/apple-music/) and [Spotify](http://www.spotify.com).
+Mac Media Key Forwarder directly forwards media keys (play/pause, next, previous) to your preferred app. This prevents accidentally controlling the currently registered app with `MPRemoteCommandCenter`, e.g. a currently playing YouTube video.
 
-Forwards media keys to Apple Music or Spotify directly.
-
-You can prioritize which app you would like to control or you can go with the default behaviour which controls the running app.
+You can prioritize which app you would like to control or you can go with the default behaviour which controls the last active app.
 
 The app runs in the menu bar.
 
 Download the compiled application from my [Releases](https://github.com/quppi/macmediakeyforwarder/releases).
+
+## Supported Applications
+
+- [Apple Music](https://www.apple.com/apple-music/)
+- [Spotify](http://www.spotify.com)
+- [Tidal](http://www.tidal.com)
 
 ## Issues you should know about
 
@@ -35,7 +39,7 @@ you can disable the gatekeeper security check with the following command in the 
 sudo xattr -r -d com.apple.quarantine /Applications/MacMediaKeyForwarder.app
 ```
 
-! note: adjust the path to the app if it's located in a different location
+`! note:` adjust the path to the app if it's located in a different location
 
 The app itself is compatible with Sonoma or later, but you need to add it as trusted application in order to make it function properly.
 
@@ -76,6 +80,11 @@ You can do this with these steps:
 Thank you!!!
 
 ## Changelog
+
+_What's new in version 4.1 :_
+
+- added support for Tidal
+- removed "send events to both players" functionality
 
 _What's new in version 4.0 :_
 

@@ -4,12 +4,12 @@ import Observation
 // MARK: - Priority Mode
 
 enum MediaKeysPriority: Int {
-    /// Send events to both players if running.
-    case none = 0
-    /// Prioritize iTunes/Apple Music over Spotify.
+    /// Prioritize iTunes/Apple Music.
     case iTunes = 1
-    /// Prioritize Spotify over iTunes/Apple Music.
+    /// Prioritize Spotify.
     case spotify = 2
+    /// Prioritize Tidal.
+    case tidal = 3
 }
 
 // MARK: - Pause State
@@ -48,7 +48,7 @@ final class AppPreferences {
 
     init() {
         let defaults = UserDefaults.standard
-        self.priority = MediaKeysPriority(rawValue: defaults.integer(forKey: Keys.priority)) ?? .none
+        self.priority = MediaKeysPriority(rawValue: defaults.integer(forKey: Keys.priority)) ?? .iTunes
         self.pauseMode = PauseMode(rawValue: defaults.integer(forKey: Keys.pause)) ?? .none
         self.hideFromMenuBar = defaults.bool(forKey: Keys.hideFromMenuBar)
     }

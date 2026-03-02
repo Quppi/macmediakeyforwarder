@@ -54,14 +54,6 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         menu.addItem(.separator())
 
         // Priority options
-        let bothItem = menu.addItem(
-            withTitle: String(localized: "Send events to both players"),
-            action: #selector(prioritizeNone),
-            keyEquivalent: ""
-        )
-        bothItem.target = self
-        priorityItems.append(bothItem)
-
         let iTunesItem = menu.addItem(
             withTitle: String(localized: "Prioritize iTunes"),
             action: #selector(prioritizeITunes),
@@ -77,6 +69,14 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         )
         spotifyItem.target = self
         priorityItems.append(spotifyItem)
+
+        let tidalItem = menu.addItem(
+            withTitle: String(localized: "Prioritize Tidal"),
+            action: #selector(prioritizeTidal),
+            keyEquivalent: ""
+        )
+        tidalItem.target = self
+        priorityItems.append(tidalItem)
 
         menu.addItem(.separator())
 
@@ -171,11 +171,6 @@ final class StatusBarController: NSObject, NSMenuDelegate {
 
     // MARK: - Priority Actions
 
-    @objc private func prioritizeNone() {
-        preferences.priority = .none
-        updatePriorityCheckmarks()
-    }
-
     @objc private func prioritizeITunes() {
         preferences.priority = .iTunes
         updatePriorityCheckmarks()
@@ -183,6 +178,11 @@ final class StatusBarController: NSObject, NSMenuDelegate {
 
     @objc private func prioritizeSpotify() {
         preferences.priority = .spotify
+        updatePriorityCheckmarks()
+    }
+
+    @objc private func prioritizeTidal() {
+        preferences.priority = .tidal
         updatePriorityCheckmarks()
     }
 
@@ -221,7 +221,7 @@ final class StatusBarController: NSObject, NSMenuDelegate {
 
     private func updatePriorityCheckmarks() {
         for (index, item) in priorityItems.enumerated() {
-            item.state = index == preferences.priority.rawValue ? .on : .off
+            item.state = (index + 1) == preferences.priority.rawValue ? .on : .off
         }
     }
 
