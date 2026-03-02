@@ -15,9 +15,22 @@ final class TidalBridge {
 
     var isRunning: Bool { app != nil }
 
-    func playPause() { sendKey(code: 49) }                           // Space
-    func nextTrack() { sendKey(code: 124, flags: .maskCommand) }     // Cmd+Right
-    func previousTrack() { sendKey(code: 123, flags: .maskCommand) } // Cmd+Left
+    func playPause() { launchOrSendKey(code: 49) }                           // Space
+    func nextTrack() { launchOrSendKey(code: 124, flags: .maskCommand) }     // Cmd+Right
+    func previousTrack() { launchOrSendKey(code: 123, flags: .maskCommand) } // Cmd+Left
+
+    private func launchOrSendKey(code: CGKeyCode, flags: CGEventFlags = []) {
+        if !isRunning {
+            launch()
+            return
+        }
+        sendKey(code: code, flags: flags)
+    }
+
+    private func launch() {
+        guard let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: Self.bundleID) else { return }
+        NSWorkspace.shared.openApplication(at: url, configuration: .init())
+    }
 
     private func sendKey(code: CGKeyCode, flags: CGEventFlags = []) {
         guard let pid = app?.processIdentifier else { return }
