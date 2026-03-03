@@ -1,3 +1,4 @@
+import Cocoa
 import ScriptingBridge
 
 // MARK: - ScriptingBridge Protocol
@@ -17,12 +18,14 @@ final class SpotifyBridge {
 
     private static let bundleID = "com.spotify.client"
 
-    private var app: (any SpotifyApplication)? {
+    private lazy var app: (any SpotifyApplication)? = {
         SBApplication(bundleIdentifier: Self.bundleID)
-    }
+    }()
 
     var isRunning: Bool {
-        (app as? SBApplication)?.isRunning ?? false
+        NSWorkspace.shared.runningApplications.contains {
+            $0.bundleIdentifier == Self.bundleID
+        }
     }
 
     func playPause() {

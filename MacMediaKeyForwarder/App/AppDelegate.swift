@@ -29,7 +29,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         // Wire event tap to player controller
         eventTap.onMediaKeyEvent = { [weak self] event in
-            self?.playerController.handleEvent(event)
+            DispatchQueue.main.async {
+                self?.playerController.handleEvent(event)
+            }
         }
 
         // Create status bar UI

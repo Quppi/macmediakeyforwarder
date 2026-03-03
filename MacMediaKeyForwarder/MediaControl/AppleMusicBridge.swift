@@ -1,3 +1,4 @@
+import Cocoa
 import ScriptingBridge
 
 // MARK: - ScriptingBridge Protocol
@@ -20,12 +21,14 @@ final class AppleMusicBridge {
 
     private static let bundleID = "com.apple.Music"
 
-    private var app: (any MusicApplication)? {
+    private lazy var app: (any MusicApplication)? = {
         SBApplication(bundleIdentifier: Self.bundleID)
-    }
+    }()
 
     var isRunning: Bool {
-        (app as? SBApplication)?.isRunning ?? false
+        NSWorkspace.shared.runningApplications.contains {
+            $0.bundleIdentifier == Self.bundleID
+        }
     }
 
     func playPause() {

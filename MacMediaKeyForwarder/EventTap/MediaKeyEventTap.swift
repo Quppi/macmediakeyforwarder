@@ -11,6 +11,7 @@ final class MediaKeyEventTap {
     private var eventPort: CFMachPort?
     private var runLoopSource: CFRunLoopSource?
     private var isListening = false
+    private var healthCheckTimer: Timer?
 
     deinit {
         stopListening()
@@ -64,15 +65,30 @@ final class MediaKeyEventTap {
             CFRunLoopAddSource(runLoop, source, .commonModes)
         }
         isListening = true
+        startHealthCheck()
     }
 
     func stopListening() {
+        healthCheckTimer?.invalidate()
+        healthCheckTimer = nil
         guard let source = runLoopSource, isListening else { return }
         let runLoop = CFRunLoopGetCurrent()
         if CFRunLoopContainsSource(runLoop, source, .commonModes) {
             CFRunLoopRemoveSource(runLoop, source, .commonModes)
         }
         isListening = false
+    }
+
+    /// Periodically checks if the event tap is still enabled and re-enables it
+    /// if the system disabled it (e.g., due to timeout or permission changes).
+    private func startHealthCheck() {
+        healthCheckTimer?.invalidate()
+        healthCheckTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { [weak self] _ in
+            guard let self, let port = self.eventPort else { return }
+            if !CGEvent.tapIsEnabled(tap: port) {
+                CGEvent.tapEnable(tap: port, enable: true)
+            }
+        }
     }
 
     // MARK: - Callback Handling
@@ -88,6 +104,9 @@ final class MediaKeyEventTap {
         }
 
         if type == .tapDisabledByUserInput {
+            if let port = eventPort {
+                CGEvent.tapEnable(tap: port, enable: true)
+            }
             return Unmanaged.passUnretained(event)
         }
 
