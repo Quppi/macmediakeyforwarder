@@ -23,6 +23,7 @@
 		CC00000000000000000001AC /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC00000000000000000000AC /* ServiceManagement.framework */; };
 		CC00000000000000000001AD /* TidalBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000000000000000000AD /* TidalBridge.swift */; };
 		CC00000000000000000001AE /* DeezerBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000000000000000000AE /* DeezerBridge.swift */; };
+		CC00000000000000000001AF /* PlexampBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000000000000000000AF /* PlexampBridge.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		CC00000000000000000000AC /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		CC00000000000000000000AD /* TidalBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TidalBridge.swift; sourceTree = "<group>"; };
 		CC00000000000000000000AE /* DeezerBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeezerBridge.swift; sourceTree = "<group>"; };
+		CC00000000000000000000AF /* PlexampBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlexampBridge.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 				CC00000000000000000000A5 /* SpotifyBridge.swift */,
 				CC00000000000000000000AD /* TidalBridge.swift */,
 				CC00000000000000000000AE /* DeezerBridge.swift */,
+				CC00000000000000000000AF /* PlexampBridge.swift */,
 				CC00000000000000000000A6 /* KeyHoldStateMachine.swift */,
 				CC00000000000000000000A7 /* MediaPlayerController.swift */,
 			);
@@ -255,6 +258,7 @@
 				CC00000000000000000001AA /* StatusBarController.swift in Sources */,
 				CC00000000000000000001AD /* TidalBridge.swift in Sources */,
 				CC00000000000000000001AE /* DeezerBridge.swift in Sources */,
+				CC00000000000000000001AF /* PlexampBridge.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,7 +399,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 4.2.1;
+				MARKETING_VERSION = 4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = eu.meyer.mmkf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -421,7 +425,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 4.2.1;
+				MARKETING_VERSION = 4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = eu.meyer.mmkf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

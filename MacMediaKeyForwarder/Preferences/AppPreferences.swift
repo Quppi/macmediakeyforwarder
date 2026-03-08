@@ -12,6 +12,8 @@ enum MediaKeysPriority: Int {
     case tidal = 3
     /// Prioritize Deezer.
     case deezer = 4
+    /// Prioritize Plexamp.
+    case plexamp = 5
 }
 
 // MARK: - Pause State

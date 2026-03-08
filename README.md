@@ -14,6 +14,7 @@ Download the compiled application from my [Releases](https://github.com/quppi/ma
 - [Spotify](https://www.spotify.com)
 - [Tidal](https://www.tidal.com)
 - [Deezer](https://www.deezer.com)
+- [Plexamp](https://www.plex.tv/plexamp/)
 
 ## Issues you should know about
 
@@ -24,11 +25,11 @@ The app listens on the event tap for key events. This causes problems in some ra
 
 In these cases simply pause MMKF from it's menu.
 
-### Deezer support
+### Deezer & Plexamp support
 
-Deezer doesn't expose playback controls via the Apple ScriptingBridge. Play / Pause is controlled through sending virtual key events (spacebar) to the running process directly. This doesn't work for next / previous track functionality, as these are implemented through Electron menu accelerators. Their codepath however is only triggered, when the appwindow is active (in the foreground).
+Deezer & Plexamp dont expose playback controls via the Apple ScriptingBridge. Play / Pause is controlled through sending virtual key events (spacebar) to the running processes directly. This doesn't work for next / previous track functionality, as these are implemented through Electron menu accelerators in Deezer (and not at all in Plexamp). Their codepath however is only triggered, when the appwindow is active (in the foreground).
 
-As a solution, MMKF restarts Deezer with the Chrome DevTools Protocol enabled (`--remote-debugging-port`). This allows MMKF to access the Deezer `window.dzPlayer.control` object through a websocket and control playback this way.
+As a solution, MMKF restarts the corresponding application with the Chrome DevTools Protocol enabled (`--remote-debugging-port`). This allows MMKF to access the `window.dzPlayer.control` / `window.app.playerController` object through a websocket and control playback this way.
 
 This websocket is only accessible from localhost and not exposed to the internet. However any locally running app could in theory access it.
 
@@ -89,6 +90,11 @@ You can do this with these steps:
 Thank you!!!
 
 ## Changelog
+
+_What's new in version 4.3 :_
+
+- added support for Plexamp
+- fixed some potential issues, that could cause the system to stop responding to userinput
 
 _What's new in version 4.2 :_
 

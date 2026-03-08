@@ -2,7 +2,7 @@
   "sourceLanguage" : "en",
   "strings" : {
     "Cancel" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "da" : {
           "stringUnit" : {
@@ -79,7 +79,7 @@
       }
     },
     "Check for updates" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "da" : {
           "stringUnit" : {
@@ -156,7 +156,7 @@
       }
     },
     "Donate if you like the app" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "da" : {
           "stringUnit" : {
@@ -233,7 +233,7 @@
       }
     },
     "Hide from menu bar" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "da" : {
           "stringUnit" : {
@@ -310,7 +310,7 @@
       }
     },
     "OK" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "da" : {
           "stringUnit" : {
@@ -387,7 +387,7 @@
       }
     },
     "Open at login" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "da" : {
           "stringUnit" : {
@@ -464,7 +464,7 @@
       }
     },
     "Pause" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "da" : {
           "stringUnit" : {
@@ -541,7 +541,7 @@
       }
     },
     "Pause if no player is running" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "da" : {
           "stringUnit" : {
@@ -618,17 +618,17 @@
       }
     },
     "Prioritize Deezer" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "da" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Prioriter Deezer"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Deezer priorisieren"
           }
         },
@@ -640,62 +640,62 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Dar prioridad a Deezer"
           }
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Deezer etusijalla"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Privilégier Deezer"
           }
         },
         "hu" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "A Deezer fontosabb"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Deezerを優先"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Deezer에 우선권 부여"
           }
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Prioriteer Deezer"
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Priorytetyzuj Deezer"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Предпочитать Deezer"
           }
         }
       }
     },
     "Prioritize iTunes" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "da" : {
           "stringUnit" : {
@@ -771,8 +771,85 @@
         }
       }
     },
+    "Prioritize Plexamp" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prioriter Plexamp"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plexamp priorisieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prioritize Plexamp"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dar prioridad a Plexamp"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plexamp etusijalla"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privilégier Plexamp"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Plexamp fontosabb"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plexampを優先"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plexamp에 우선권 부여"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prioriteer Plexamp"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Priorytetyzuj Plexamp"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Предпочитать Plexamp"
+          }
+        }
+      }
+    },
     "Prioritize Spotify" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "da" : {
           "stringUnit" : {
@@ -849,7 +926,7 @@
       }
     },
     "Prioritize Tidal" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "da" : {
           "stringUnit" : {
@@ -926,7 +1003,7 @@
       }
     },
     "Quit" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "da" : {
           "stringUnit" : {

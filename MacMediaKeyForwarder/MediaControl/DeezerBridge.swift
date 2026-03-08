@@ -233,13 +233,6 @@ final class DeezerBridge {
 
     // MARK: - Launch
 
-    private func launch() {
-        guard let url = NSWorkspace.shared.urlForApplication(
-            withBundleIdentifier: Self.bundleID
-        ) else { return }
-        NSWorkspace.shared.openApplication(at: url, configuration: .init())
-    }
-
     private func launchWithCDP() {
         guard let url = NSWorkspace.shared.urlForApplication(
             withBundleIdentifier: Self.bundleID

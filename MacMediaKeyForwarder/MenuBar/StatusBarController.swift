@@ -86,6 +86,14 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         deezerItem.target = self
         priorityItems.append(deezerItem)
 
+        let plexampItem = menu.addItem(
+            withTitle: String(localized: "Prioritize Plexamp"),
+            action: #selector(prioritizePlexamp),
+            keyEquivalent: ""
+        )
+        plexampItem.target = self
+        priorityItems.append(plexampItem)
+
         menu.addItem(.separator())
 
         // Login item & hide
@@ -196,6 +204,11 @@ final class StatusBarController: NSObject, NSMenuDelegate {
 
     @objc private func prioritizeDeezer() {
         preferences.priority = .deezer
+        updatePriorityCheckmarks()
+    }
+
+    @objc private func prioritizePlexamp() {
+        preferences.priority = .plexamp
         updatePriorityCheckmarks()
     }
 
