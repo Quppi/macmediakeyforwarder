@@ -65,3 +65,6 @@ iOSInjectionProject/
 # Claude / oh-my-claude
 .claude/
 .omc/
+
+# Release artifacts
+dist/
