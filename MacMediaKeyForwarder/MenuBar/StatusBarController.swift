@@ -306,24 +306,46 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         startupItem.state = LoginItemManager.isLoginItem ? .on : .off
     }
 
-    private func updatePermissionWarning() {
-        let bundleID: String?
+    /// Bundle ID of the currently prioritized player, or nil for players that
+    /// don't use ScriptingBridge (no Automation permission needed).
+    private var currentPriorityBundleID: String? {
         switch preferences.priority {
         case .spotify:
-            bundleID = SpotifyBridge.bundleID
+            return SpotifyBridge.bundleID
         case .iTunes:
-            bundleID = AppleMusicBridge.bundleID
+            return AppleMusicBridge.bundleID
         case .tidal, .deezer, .plexamp:
-            // These don't use ScriptingBridge, so no warning needed
-            bundleID = nil
+            return nil
+        }
+    }
+
+    private func updatePermissionWarning() {
+        guard let bundleID = currentPriorityBundleID else {
+            applyPermissionWarning(missing: false, bundleID: nil)
+            return
         }
 
-        let permissionMissing = bundleID.map { !canAutomateApp(bundleID: $0) } ?? false
+        let monitor = AutomationPermissionMonitor.shared
 
-        permissionWarningItem.isHidden = !permissionMissing
-        redDotView?.isHidden = !permissionMissing
+        // Show the last known status immediately (never blocks), then refresh
+        // in the background and update the UI once the fresh status arrives.
+        applyPermissionWarning(
+            missing: monitor.cachedStatus(for: bundleID) == .denied,
+            bundleID: bundleID
+        )
+        monitor.refresh(bundleID: bundleID) { [weak self] status in
+            guard let self else { return }
+            // The priority may have changed while the check was running.
+            guard bundleID == self.currentPriorityBundleID else { return }
+            self.applyPermissionWarning(missing: status == .denied, bundleID: bundleID)
+        }
+    }
 
-        if permissionMissing, let bundleID {
+    private func applyPermissionWarning(missing: Bool, bundleID: String?) {
+        permissionWarningItem.isHidden = !missing
+        redDotView?.isHidden = !missing
+
+        if missing, let bundleID {
             Self.log.notice("Automation permission missing for \(bundleID, privacy: .public)")
         }
     }

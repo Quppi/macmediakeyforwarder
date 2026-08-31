@@ -31,6 +31,10 @@ final class AppleMusicBridge {
         SBApplication(bundleIdentifier: Self.bundleID)
     }()
 
+    init() {
+        AutomationPermissionMonitor.shared.refresh(bundleID: Self.bundleID)
+    }
+
     var isRunning: Bool {
         NSWorkspace.shared.runningApplications.contains {
             $0.bundleIdentifier == Self.bundleID
@@ -38,8 +42,9 @@ final class AppleMusicBridge {
     }
 
     /// Whether Automation permission is currently granted for Apple Music.
+    /// Reads the cached status — never blocks (the live check can hang).
     var hasAutomationPermission: Bool {
-        canAutomateApp(bundleID: Self.bundleID)
+        AutomationPermissionMonitor.shared.canAutomate(bundleID: Self.bundleID)
     }
 
     func playPause() {
