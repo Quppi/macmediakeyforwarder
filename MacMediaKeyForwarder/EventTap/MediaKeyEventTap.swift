@@ -1,9 +1,14 @@
 import Cocoa
 import CoreGraphics
+import os.log
 
 /// Intercepts system media key events via a `CGEventTap` and forwards parsed
 /// `MediaKeyEvent` values through the `onMediaKeyEvent` closure.
 final class MediaKeyEventTap {
+
+    private static let log = Logger(
+        subsystem: "eu.meyer.mmkf", category: "MediaKeyEventTap"
+    )
 
     /// Called on the main thread when a media key event is detected.
     var onMediaKeyEvent: ((MediaKeyEvent) -> Void)?
@@ -50,8 +55,12 @@ final class MediaKeyEventTap {
             )
         }
 
-        guard let port = eventPort else { return false }
+        guard let port = eventPort else {
+            Self.log.error("Failed to create event tap — accessibility permission missing?")
+            return false
+        }
 
+        Self.log.notice("Event tap created successfully")
         runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, port, 0)
         return true
     }
@@ -65,6 +74,7 @@ final class MediaKeyEventTap {
             CFRunLoopAddSource(runLoop, source, .commonModes)
         }
         isListening = true
+        Self.log.notice("Event tap listening started")
         startHealthCheck()
     }
 
@@ -77,6 +87,7 @@ final class MediaKeyEventTap {
             CFRunLoopRemoveSource(runLoop, source, .commonModes)
         }
         isListening = false
+        Self.log.notice("Event tap listening stopped")
     }
 
     /// Periodically checks if the event tap is still enabled and re-enables it
@@ -86,6 +97,7 @@ final class MediaKeyEventTap {
         healthCheckTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { [weak self] _ in
             guard let self, let port = self.eventPort else { return }
             if !CGEvent.tapIsEnabled(tap: port) {
+                Self.log.warning("Event tap was disabled by system — re-enabling")
                 CGEvent.tapEnable(tap: port, enable: true)
             }
         }
@@ -97,6 +109,7 @@ final class MediaKeyEventTap {
     fileprivate func handleRawEvent(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent) -> Unmanaged<CGEvent>? {
         // Re-enable tap if the system disabled it due to timeout
         if type == .tapDisabledByTimeout {
+            Self.log.warning("Event tap disabled by timeout — re-enabling")
             if let port = eventPort {
                 CGEvent.tapEnable(tap: port, enable: true)
             }
@@ -104,6 +117,7 @@ final class MediaKeyEventTap {
         }
 
         if type == .tapDisabledByUserInput {
+            Self.log.warning("Event tap disabled by user input — re-enabling")
             if let port = eventPort {
                 CGEvent.tapEnable(tap: port, enable: true)
             }

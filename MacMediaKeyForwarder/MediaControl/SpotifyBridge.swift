@@ -1,5 +1,6 @@
 import Cocoa
 import ScriptingBridge
+import os.log
 
 // MARK: - ScriptingBridge Protocol
 
@@ -13,10 +14,15 @@ extension SBApplication: SpotifyApplication {}
 
 // MARK: - Spotify Bridge
 
-/// ScriptingBridge wrapper for Spotify (com.spotify.client).
+/// Controls Spotify via ScriptingBridge when Automation permission is granted,
+/// falling back to CGEvent keyboard simulation when it is not.
 final class SpotifyBridge {
 
-    private static let bundleID = "com.spotify.client"
+    static let bundleID = "com.spotify.client"
+
+    private static let log = Logger(
+        subsystem: "eu.meyer.mmkf", category: "SpotifyBridge"
+    )
 
     private lazy var app: (any SpotifyApplication)? = {
         SBApplication(bundleIdentifier: Self.bundleID)
@@ -28,15 +34,58 @@ final class SpotifyBridge {
         }
     }
 
+    /// Whether Automation permission is currently granted for Spotify.
+    var hasAutomationPermission: Bool {
+        canAutomateApp(bundleID: Self.bundleID)
+    }
+
     func playPause() {
-        app?.playpause?()
+        if hasAutomationPermission {
+            Self.log.notice("playPause via ScriptingBridge")
+            app?.playpause?()
+        } else {
+            Self.log.notice("playPause via CGEvent fallback (no Automation permission)")
+            sendKey(code: 49) // Space
+        }
     }
 
     func nextTrack() {
-        app?.nextTrack?()
+        if hasAutomationPermission {
+            Self.log.notice("nextTrack via ScriptingBridge")
+            app?.nextTrack?()
+        } else {
+            Self.log.notice("nextTrack via CGEvent fallback")
+            sendKey(code: 124, flags: .maskCommand) // Cmd+Right
+        }
     }
 
     func previousTrack() {
-        app?.previousTrack?()
+        if hasAutomationPermission {
+            Self.log.notice("previousTrack via ScriptingBridge")
+            app?.previousTrack?()
+        } else {
+            Self.log.notice("previousTrack via CGEvent fallback")
+            sendKey(code: 123, flags: .maskCommand) // Cmd+Left
+        }
+    }
+
+    // MARK: - CGEvent Fallback
+
+    private var runningApp: NSRunningApplication? {
+        NSWorkspace.shared.runningApplications.first {
+            $0.bundleIdentifier == Self.bundleID
+        }
+    }
+
+    private func sendKey(code: CGKeyCode, flags: CGEventFlags = []) {
+        guard let pid = runningApp?.processIdentifier else { return }
+        let down = CGEvent(keyboardEventSource: nil, virtualKey: code, keyDown: true)
+        let up   = CGEvent(keyboardEventSource: nil, virtualKey: code, keyDown: false)
+        if !flags.isEmpty {
+            down?.flags = flags
+            up?.flags = flags
+        }
+        down?.postToPid(pid)
+        up?.postToPid(pid)
     }
 }

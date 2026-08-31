@@ -1,10 +1,15 @@
 import Foundation
+import os.log
 
 /// Routes media key events to the appropriate player based on the current
 /// priority mode and pause state.
 ///
 /// Faithfully ports the behavior from AppDelegate.m lines 95-262.
 final class MediaPlayerController {
+
+    private static let log = Logger(
+        subsystem: "eu.meyer.mmkf", category: "MediaPlayerController"
+    )
 
     let preferences: AppPreferences
     let appleMusic = AppleMusicBridge()
@@ -37,6 +42,8 @@ final class MediaPlayerController {
                 return
             }
         }
+
+        Self.log.notice("Handling keyCode=\(event.keyCode.rawValue) (pressed=\(event.isPressed)) for priority=\(self.preferences.priority.rawValue)")
 
         if event.isPressed {
             handleKeyDown(event)

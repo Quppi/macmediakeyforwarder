@@ -1,7 +1,12 @@
 import Cocoa
+import os.log
 
 /// Manages the `NSStatusItem`, its menu, and all menu actions.
 final class StatusBarController: NSObject, NSMenuDelegate {
+
+    private static let log = Logger(
+        subsystem: "eu.meyer.mmkf", category: "StatusBarController"
+    )
 
     private let preferences: AppPreferences
     private let eventTap: MediaKeyEventTap
@@ -11,6 +16,8 @@ final class StatusBarController: NSObject, NSMenuDelegate {
     private var pauseItems: [NSMenuItem] = []
     private var startupItem: NSMenuItem!
     private var hideFromMenuBarItem: NSMenuItem!
+    private var permissionWarningItem: NSMenuItem!
+    private var redDotView: NSView?
 
     init(preferences: AppPreferences, eventTap: MediaKeyEventTap) {
         self.preferences = preferences
@@ -33,6 +40,19 @@ final class StatusBarController: NSObject, NSMenuDelegate {
 
         menu.addItem(withTitle: versionString, action: nil, keyEquivalent: "")
         menu.addItem(.separator())
+
+        // Automation permission warning (hidden by default)
+        permissionWarningItem = menu.addItem(
+            withTitle: "",
+            action: #selector(openAutomationSettings),
+            keyEquivalent: ""
+        )
+        permissionWarningItem.attributedTitle = NSAttributedString(
+            string: String(localized: "Automation permission needed"),
+            attributes: [.foregroundColor: NSColor.systemRed]
+        )
+        permissionWarningItem.target = self
+        permissionWarningItem.isHidden = true
 
         // Pause options
         let pauseItem = menu.addItem(
@@ -146,10 +166,29 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         statusItem.behavior = .removalAllowed
         statusItem.isVisible = !preferences.hideFromMenuBar
 
+        // Red dot indicator for missing permissions
+        let dot = NSView()
+        dot.wantsLayer = true
+        dot.layer?.backgroundColor = NSColor.systemRed.cgColor
+        dot.layer?.cornerRadius = 3
+        dot.frame = NSRect(x: 0, y: 0, width: 6, height: 6)
+        dot.isHidden = true
+        statusItem.button?.addSubview(dot)
+        // Position in top-right corner of the button
+        dot.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            dot.widthAnchor.constraint(equalToConstant: 6),
+            dot.heightAnchor.constraint(equalToConstant: 6),
+            dot.topAnchor.constraint(equalTo: statusItem.button!.topAnchor, constant: 2),
+            dot.trailingAnchor.constraint(equalTo: statusItem.button!.trailingAnchor, constant: -1),
+        ])
+        redDotView = dot
+
         // Initial UI state
         updatePauseCheckmarks()
         updatePriorityCheckmarks()
         updateStartupItemCheckmark()
+        updatePermissionWarning()
     }
 
     // MARK: - Public
@@ -190,26 +229,31 @@ final class StatusBarController: NSObject, NSMenuDelegate {
     @objc private func prioritizeITunes() {
         preferences.priority = .iTunes
         updatePriorityCheckmarks()
+        updatePermissionWarning()
     }
 
     @objc private func prioritizeSpotify() {
         preferences.priority = .spotify
         updatePriorityCheckmarks()
+        updatePermissionWarning()
     }
 
     @objc private func prioritizeTidal() {
         preferences.priority = .tidal
         updatePriorityCheckmarks()
+        updatePermissionWarning()
     }
 
     @objc private func prioritizeDeezer() {
         preferences.priority = .deezer
         updatePriorityCheckmarks()
+        updatePermissionWarning()
     }
 
     @objc private func prioritizePlexamp() {
         preferences.priority = .plexamp
         updatePriorityCheckmarks()
+        updatePermissionWarning()
     }
 
     // MARK: - Other Actions
@@ -238,6 +282,13 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         NSApp.terminate(nil)
     }
 
+    @objc private func openAutomationSettings() {
+        // Opens System Settings → Privacy & Security → Automation
+        NSWorkspace.shared.open(
+            URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Automation")!
+        )
+    }
+
     // MARK: - UI State
 
     private func updatePauseCheckmarks() {
@@ -255,9 +306,32 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         startupItem.state = LoginItemManager.isLoginItem ? .on : .off
     }
 
+    private func updatePermissionWarning() {
+        let bundleID: String?
+        switch preferences.priority {
+        case .spotify:
+            bundleID = SpotifyBridge.bundleID
+        case .iTunes:
+            bundleID = AppleMusicBridge.bundleID
+        case .tidal, .deezer, .plexamp:
+            // These don't use ScriptingBridge, so no warning needed
+            bundleID = nil
+        }
+
+        let permissionMissing = bundleID.map { !canAutomateApp(bundleID: $0) } ?? false
+
+        permissionWarningItem.isHidden = !permissionMissing
+        redDotView?.isHidden = !permissionMissing
+
+        if permissionMissing, let bundleID {
+            Self.log.notice("Automation permission missing for \(bundleID, privacy: .public)")
+        }
+    }
+
     // MARK: - NSMenuDelegate
 
     func menuWillOpen(_ menu: NSMenu) {
         updateStartupItemCheckmark()
+        updatePermissionWarning()
     }
 }

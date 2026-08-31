@@ -24,6 +24,7 @@
 		CC00000000000000000001AD /* TidalBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000000000000000000AD /* TidalBridge.swift */; };
 		CC00000000000000000001AE /* DeezerBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000000000000000000AE /* DeezerBridge.swift */; };
 		CC00000000000000000001AF /* PlexampBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000000000000000000AF /* PlexampBridge.swift */; };
+		CC00000000000000000001B0 /* AutomationPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000000000000000000B0 /* AutomationPermission.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		CC00000000000000000000AD /* TidalBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TidalBridge.swift; sourceTree = "<group>"; };
 		CC00000000000000000000AE /* DeezerBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeezerBridge.swift; sourceTree = "<group>"; };
 		CC00000000000000000000AF /* PlexampBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlexampBridge.swift; sourceTree = "<group>"; };
+		CC00000000000000000000B0 /* AutomationPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomationPermission.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 				CC00000000000000000000D3 /* MediaControl */,
 				CC00000000000000000000D4 /* Preferences */,
 				CC00000000000000000000D5 /* MenuBar */,
+				CC00000000000000000000D7 /* Utilities */,
 				CC00000000000000000000D6 /* Resources */,
 				336F74561E07E136009BCC1B /* Info.plist */,
 			);
@@ -156,6 +159,14 @@
 				CC00000000000000000000AB /* Localizable.xcstrings */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		CC00000000000000000000D7 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				CC00000000000000000000B0 /* AutomationPermission.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,6 +270,7 @@
 				CC00000000000000000001AD /* TidalBridge.swift in Sources */,
 				CC00000000000000000001AE /* DeezerBridge.swift in Sources */,
 				CC00000000000000000001AF /* PlexampBridge.swift in Sources */,
+				CC00000000000000000001B0 /* AutomationPermission.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
