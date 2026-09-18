@@ -4,26 +4,43 @@ import os.log
 
 /// Intercepts system media key events via a `CGEventTap` and forwards parsed
 /// `MediaKeyEvent` values through the `onMediaKeyEvent` closure.
+///
+/// The tap runs on its own thread and run loop, never the main one. A
+/// `CGEventTap` callback that does not return promptly makes macOS disable the
+/// tap, after which every media key falls through to the frontmost app. Keeping
+/// the tap on a dedicated thread means that whatever the main thread is doing —
+/// including blocking on IPC to a music player that stopped answering — the
+/// keys are still captured, still consumed, and the tap is still re-armed.
 final class MediaKeyEventTap {
 
     private static let log = Logger(
         subsystem: "eu.meyer.mmkf", category: "MediaKeyEventTap"
     )
 
-    /// Called on the main thread when a media key event is detected.
+    /// Called on the tap's own thread when a media key event is detected.
+    /// Handlers must hop to whatever queue they need and must not block.
     var onMediaKeyEvent: ((MediaKeyEvent) -> Void)?
 
+    /// Set once in `createTap()`, before the tap thread starts, and read from
+    /// the tap thread afterwards.
     private var eventPort: CFMachPort?
     private var runLoopSource: CFRunLoopSource?
+
+    private let lock = NSLock()
     private var isListening = false
-    private var healthCheckTimer: Timer?
+    private var tapThread: Thread?
+    private var tapRunLoop: CFRunLoop?
+
+    /// Signalled once the tap thread's run loop is ready to take work.
+    private let runLoopReady = DispatchSemaphore(value: 0)
 
     deinit {
-        stopListening()
-        // CFMachPort and CFRunLoopSource are automatically managed in Swift via ARC.
-        // Setting to nil is sufficient for cleanup.
-        runLoopSource = nil
-        eventPort = nil
+        if let port = eventPort {
+            CGEvent.tapEnable(tap: port, enable: false)
+        }
+        if let runLoop = tapRunLoop {
+            CFRunLoopStop(runLoop)
+        }
     }
 
     // MARK: - Setup
@@ -68,44 +85,124 @@ final class MediaKeyEventTap {
     // MARK: - Listening Control
 
     func startListening() {
-        guard let source = runLoopSource, !isListening else { return }
+        lock.lock()
+        guard runLoopSource != nil, !isListening else {
+            lock.unlock()
+            return
+        }
+        isListening = true
+        let threadExists = tapThread != nil
+        lock.unlock()
+
+        if threadExists {
+            performOnTapRunLoop { [weak self] in self?.attachSource() }
+        } else {
+            startTapThread() // attaches the source as soon as its run loop is up
+        }
+        Self.log.notice("Event tap listening started")
+    }
+
+    func stopListening() {
+        lock.lock()
+        guard isListening else {
+            lock.unlock()
+            return
+        }
+        isListening = false
+        lock.unlock()
+
+        performOnTapRunLoop { [weak self] in self?.detachSource() }
+        Self.log.notice("Event tap listening stopped")
+    }
+
+    // MARK: - Tap Thread
+
+    private func startTapThread() {
+        let thread = Thread { [weak self] in self?.runTapThread() }
+        thread.name = "eu.meyer.mmkf.MediaKeyEventTap"
+        thread.qualityOfService = .userInteractive
+
+        lock.lock()
+        tapThread = thread
+        lock.unlock()
+
+        thread.start()
+        // Bounded, so a thread that fails to start can never hang the caller.
+        _ = runLoopReady.wait(timeout: .now() + 2.0)
+    }
+
+    private func runTapThread() {
+        let runLoop = CFRunLoopGetCurrent()
+        lock.lock()
+        tapRunLoop = runLoop
+        lock.unlock()
+
+        attachSource()
+
+        // Re-arms the tap if the system disabled it, and keeps the run loop
+        // alive while the source is detached.
+        let healthTimer = Timer(timeInterval: 5.0, repeats: true) { [weak self] _ in
+            self?.reEnableTapIfNeeded()
+        }
+        RunLoop.current.add(healthTimer, forMode: .common)
+
+        runLoopReady.signal()
+        CFRunLoopRun()
+    }
+
+    /// Runs `block` on the tap thread's run loop. No-op until it is up.
+    private func performOnTapRunLoop(_ block: @escaping () -> Void) {
+        lock.lock()
+        let runLoop = tapRunLoop
+        lock.unlock()
+
+        guard let runLoop else { return }
+        CFRunLoopPerformBlock(runLoop, CFRunLoopMode.commonModes.rawValue, block)
+        CFRunLoopWakeUp(runLoop)
+    }
+
+    /// Tap thread only.
+    private func attachSource() {
+        guard let source = runLoopSource else { return }
         let runLoop = CFRunLoopGetCurrent()
         if !CFRunLoopContainsSource(runLoop, source, .commonModes) {
             CFRunLoopAddSource(runLoop, source, .commonModes)
         }
-        isListening = true
-        Self.log.notice("Event tap listening started")
-        startHealthCheck()
+        if let port = eventPort {
+            CGEvent.tapEnable(tap: port, enable: true)
+        }
     }
 
-    func stopListening() {
-        healthCheckTimer?.invalidate()
-        healthCheckTimer = nil
-        guard let source = runLoopSource, isListening else { return }
+    /// Tap thread only.
+    private func detachSource() {
+        if let port = eventPort {
+            CGEvent.tapEnable(tap: port, enable: false)
+        }
+        guard let source = runLoopSource else { return }
         let runLoop = CFRunLoopGetCurrent()
         if CFRunLoopContainsSource(runLoop, source, .commonModes) {
             CFRunLoopRemoveSource(runLoop, source, .commonModes)
         }
-        isListening = false
-        Self.log.notice("Event tap listening stopped")
     }
 
     /// Periodically checks if the event tap is still enabled and re-enables it
     /// if the system disabled it (e.g., due to timeout or permission changes).
-    private func startHealthCheck() {
-        healthCheckTimer?.invalidate()
-        healthCheckTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { [weak self] _ in
-            guard let self, let port = self.eventPort else { return }
-            if !CGEvent.tapIsEnabled(tap: port) {
-                Self.log.warning("Event tap was disabled by system — re-enabling")
-                CGEvent.tapEnable(tap: port, enable: true)
-            }
+    private func reEnableTapIfNeeded() {
+        lock.lock()
+        let listening = isListening
+        lock.unlock()
+
+        guard listening, let port = eventPort else { return }
+        if !CGEvent.tapIsEnabled(tap: port) {
+            Self.log.warning("Event tap was disabled by system — re-enabling")
+            CGEvent.tapEnable(tap: port, enable: true)
         }
     }
 
     // MARK: - Callback Handling
 
-    /// Called from the C callback; parses the event and invokes the handler.
+    /// Called from the C callback on the tap thread; parses the event and
+    /// invokes the handler.
     fileprivate func handleRawEvent(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent) -> Unmanaged<CGEvent>? {
         // Re-enable tap if the system disabled it due to timeout
         if type == .tapDisabledByTimeout {

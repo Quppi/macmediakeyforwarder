@@ -33,9 +33,30 @@ final class AutomationPermissionMonitor {
     /// How long to wait for a check before reporting the last known status.
     private let checkTimeout: TimeInterval = 2.0
 
+    /// How long a wedged check blocks further attempts for the same target,
+    /// and the ceiling that backing off doubles towards.
+    ///
+    /// `AEDeterminePermissionToAutomateTarget` can hang for the lifetime of the
+    /// process. Without a retry the first hang would freeze that target's
+    /// status forever, because `inFlight` would never clear — but a stuck call
+    /// also never releases its thread, so retrying at a fixed interval would
+    /// leak one thread per interval. Backing off exponentially keeps a target
+    /// that always wedges down to a handful of leaked threads per session.
+    private let baseRetryInterval: TimeInterval = 60.0
+    private let maxRetryInterval: TimeInterval = 1800.0
+
+    /// After this many consecutive hangs we stop retrying a target until it is
+    /// restarted. A wedged call never gives its thread back, and once the Apple
+    /// Events daemon has stopped answering for a target it stays that way for
+    /// as long as that target is running — so further attempts only leak
+    /// threads. Relaunching the target clears the count.
+    private let maxConsecutiveHangs = 5
+
     private let lock = NSLock()
     private var cache: [String: AutomationPermissionStatus] = [:]
     private var inFlight: Set<String> = []
+    private var attemptStartedAt: [String: Date] = [:]
+    private var consecutiveHangs: [String: Int] = [:]
     private var pendingCompletions: [String: [(AutomationPermissionStatus) -> Void]] = [:]
     private var observedBundleIDs: Set<String> = []
 
@@ -82,11 +103,23 @@ final class AutomationPermissionMonitor {
         if let completion {
             pendingCompletions[bundleID, default: []].append(completion)
         }
-        guard !inFlight.contains(bundleID) else {
-            lock.unlock()
-            return
+        if inFlight.contains(bundleID) {
+            // A check is still running. Allow a fresh attempt once the running
+            // one has clearly overrun, so a single wedged call can't freeze
+            // this target's status permanently — but back off each time, since
+            // a wedged call never gives its thread back.
+            let hangs = consecutiveHangs[bundleID] ?? 0
+            let startedAt = attemptStartedAt[bundleID] ?? .distantPast
+            guard hangs < maxConsecutiveHangs,
+                  Date().timeIntervalSince(startedAt) > retryInterval(for: bundleID) else {
+                lock.unlock()
+                return
+            }
+            consecutiveHangs[bundleID] = hangs + 1
+            Self.log.warning("Previous Automation permission check for \(bundleID, privacy: .public) never returned — retrying")
         }
         inFlight.insert(bundleID)
+        attemptStartedAt[bundleID] = Date()
         lock.unlock()
 
         // Fast path: no IPC needed when the target isn't running.
@@ -101,17 +134,28 @@ final class AutomationPermissionMonitor {
         }
 
         // Watchdog: if the check hangs, flush waiting completions with the
-        // last known status. `inFlight` stays set so we never stack up more
-        // stuck threads for the same target; the cache updates whenever the
-        // stuck call eventually returns.
+        // last known status. `inFlight` stays set so we don't immediately
+        // stack up more stuck threads for the same target; the backoff in
+        // `refresh` lets a later call try again, and the cache updates
+        // whenever a stuck call eventually returns.
         DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + checkTimeout) { [weak self] in
             self?.flushAfterTimeout(bundleID: bundleID)
         }
     }
 
+    /// Doubles per consecutive hang, up to `maxRetryInterval`.
+    /// Caller must hold `lock`.
+    private func retryInterval(for bundleID: String) -> TimeInterval {
+        let hangs = consecutiveHangs[bundleID] ?? 0
+        let backoff = baseRetryInterval * pow(2.0, Double(hangs))
+        return min(backoff, maxRetryInterval)
+    }
+
     private func finish(bundleID: String, status: AutomationPermissionStatus) {
         lock.lock()
         inFlight.remove(bundleID)
+        attemptStartedAt.removeValue(forKey: bundleID)
+        consecutiveHangs.removeValue(forKey: bundleID)
         let previous = cache[bundleID]
         cache[bundleID] = status
         let completions = pendingCompletions.removeValue(forKey: bundleID) ?? []
@@ -149,6 +193,7 @@ final class AutomationPermissionMonitor {
 
     @objc private func targetAppLaunched(_ note: Notification) {
         guard let bundleID = Self.bundleID(from: note), isObserved(bundleID) else { return }
+        clearHangCount(for: bundleID)
         // Give the app a moment to register with the Apple Events daemon.
         DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 1.0) { [weak self] in
             self?.refresh(bundleID: bundleID)
@@ -157,7 +202,15 @@ final class AutomationPermissionMonitor {
 
     @objc private func targetAppTerminated(_ note: Notification) {
         guard let bundleID = Self.bundleID(from: note), isObserved(bundleID) else { return }
+        clearHangCount(for: bundleID)
         refresh(bundleID: bundleID)
+    }
+
+    /// Lets a target that was given up on be checked again once it restarts.
+    private func clearHangCount(for bundleID: String) {
+        lock.lock()
+        consecutiveHangs.removeValue(forKey: bundleID)
+        lock.unlock()
     }
 
     private func isObserved(_ bundleID: String) -> Bool {

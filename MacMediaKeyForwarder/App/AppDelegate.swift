@@ -27,7 +27,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             exit(0)
         }
 
-        // Wire event tap to player controller
+        // Wire event tap to player controller. The tap fires on its own
+        // thread; hop to main, where the player state is owned.
         eventTap.onMediaKeyEvent = { [weak self] event in
             DispatchQueue.main.async {
                 self?.playerController.handleEvent(event)

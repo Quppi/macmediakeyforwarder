@@ -24,11 +24,30 @@ final class SpotifyBridge {
         subsystem: "eu.meyer.mmkf", category: "SpotifyBridge"
     )
 
-    private lazy var app: (any SpotifyApplication)? = {
-        SBApplication(bundleIdentifier: Self.bundleID)
-    }()
+    /// Serial queue for every Apple Event sent to Spotify.
+    ///
+    /// `AESendMessage` is synchronous, so a target that stops answering parks
+    /// the calling thread — with no upper bound in practice. On the main thread
+    /// that froze the entire app: the menu bar stopped responding and the media
+    /// key tap could no longer run, so macOS disabled it and the keys fell
+    /// through to whatever app was in front. Commands therefore never run on
+    /// the main thread.
+    private let commandQueue = DispatchQueue(
+        label: "eu.meyer.mmkf.spotify-commands", qos: .userInitiated
+    )
+
+    /// Built eagerly so the command queue never races on lazy initialization.
+    private let app: (any SpotifyApplication)?
 
     init() {
+        let app = SBApplication(bundleIdentifier: Self.bundleID)
+        // Fire and forget: media transport commands have no useful reply, and
+        // never let Spotify put up UI that we would then be waiting on.
+        app?.sendMode = AESendMode(kAENoReply | kAENeverInteract)
+        // Bounds the connect handshake, in ticks (1/60 s).
+        app?.timeout = 120
+        self.app = app
+
         AutomationPermissionMonitor.shared.refresh(bundleID: Self.bundleID)
     }
 
@@ -47,7 +66,7 @@ final class SpotifyBridge {
     func playPause() {
         if hasAutomationPermission {
             Self.log.notice("playPause via ScriptingBridge")
-            app?.playpause?()
+            perform { $0.playpause?() }
         } else {
             Self.log.notice("playPause via CGEvent fallback (no Automation permission)")
             sendKey(code: 49) // Space
@@ -57,7 +76,7 @@ final class SpotifyBridge {
     func nextTrack() {
         if hasAutomationPermission {
             Self.log.notice("nextTrack via ScriptingBridge")
-            app?.nextTrack?()
+            perform { $0.nextTrack?() }
         } else {
             Self.log.notice("nextTrack via CGEvent fallback")
             sendKey(code: 124, flags: .maskCommand) // Cmd+Right
@@ -67,11 +86,17 @@ final class SpotifyBridge {
     func previousTrack() {
         if hasAutomationPermission {
             Self.log.notice("previousTrack via ScriptingBridge")
-            app?.previousTrack?()
+            perform { $0.previousTrack?() }
         } else {
             Self.log.notice("previousTrack via CGEvent fallback")
             sendKey(code: 123, flags: .maskCommand) // Cmd+Left
         }
+    }
+
+    /// Sends an Apple Event off the main thread — see `commandQueue`.
+    private func perform(_ command: @escaping (any SpotifyApplication) -> Void) {
+        guard let app else { return }
+        commandQueue.async { command(app) }
     }
 
     // MARK: - CGEvent Fallback
